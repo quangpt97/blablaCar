@@ -1,0 +1,40 @@
+<ActionBar title="Chat Forum">
+    <ActionItem text="Logout" ios.position="true" (tap)="logout()"></ActionItem>
+    <!--<ActionItem ios.position="right" (tap)="sendYowl()">-->
+        <!--<Button [text]="'fa-pencil-square-o' | fonticon" class="fa blue large"></Button>-->
+    <!--</ActionItem>-->
+</ActionBar>
+<!--<GridLayout>-->
+    <!--<Label text="Welcome to the secure page!" class="text-center"></Label>-->
+    <!--<ListView class="list-group" [items]="countries" (itemTap)="onItemTap($event)"-->
+              <!--style="height:1250px">-->
+        <!--<ng-template let-country="item">-->
+            <!--<FlexboxLayout flexDirection="row" class="list-group-item">-->
+                <!--<Image [src]="country.imageSrc" class="thumb img-circle"></Image>-->
+                <!--<Label [text]="country.name" class="list-group-item-heading"-->
+                       <!--verticalAlignment="center" style="width: 60%"></Label>-->
+            <!--</FlexboxLayout>-->
+        <!--</ng-template>-->
+    <!--</ListView>-->
+<!--</GridLayout>-->
+<StackLayout>
+
+    <ListView height="85%" margin-bottom="50" padding="5" #list [items]=" chats$ | async ">
+        <ng-template let-item="item">
+            <GridLayout columns="*" rows="auto" class="msg">
+                <StackLayout [class]="filter(item.from)" orientation="horizontal" [horizontalAlignment]="align(item.from)">
+                    <Image [visibility]="showImage(item.from)" class="authorimg" stretch="aspectFill" height="30" width="30" verticalAlignment="top" src="https://i.imgur.com/qnGr9UJ.jpg" col="1"></Image>
+                    <Label [text]='item.message' class="msg_text" textWrap="true" verticalAlignment="top"></Label>
+                </StackLayout>
+            </GridLayout>
+        </ng-template>
+    </ListView>
+
+    <StackLayout #chatbox height="15%">
+        <GridLayout columns="*,auto" style="padding: 10">
+            <TextField #textfield class="chatTextField" row="0" col="0" [(ngModel)]="message"></TextField>
+            <Button #btn class="chatBtn" row="0" col="1" text="send" (tap)=chat(message)></Button>
+        </GridLayout>
+    </StackLayout>
+
+</StackLayout>
